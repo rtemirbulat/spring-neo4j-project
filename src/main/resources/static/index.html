@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title>DataViz</title>
+        <style type="text/css">
+            #viz {
+                width: 1920px;
+                height: 1080px;
+				border: 1px solid lightgray;
+                font: 22pt arial;
+            }
+        </style>
+        <script src="https://rawgit.com/neo4j-contrib/neovis.js/master/dist/neovis.js"></script>
+    </head>   
+	
+	
+    <script>
+        function draw() {
+            var config = {
+                container_id: "viz",
+                server_url: "bolt://34.141.198.19:7687",
+                server_user: "neo4j",
+                server_password: "root",
+				labels: {
+                    "Person": {
+                        caption: "name",
+                        size: "pagerank",
+						image:"https://img.icons8.com/ios-glyphs/30/000000/theatre-mask.png"
+				
+					},
+					"Movie": {
+                        caption: "title",
+						size:"pagerank",
+						image:"https://img.icons8.com/ios-glyphs/30/000000/movie--v1.png",
+                    }
+					
+                },
+				
+                initial_cypher: "MATCH (n:Person)-[r]->(m:Movie) RETURN n,r,m"
+            }
+
+            var viz = new NeoVis.default(config);
+            viz.render();
+        }
+    </script>
+
+    <body onload="draw()">
+        <div id="viz"></div>
+    </body>
+</html>
